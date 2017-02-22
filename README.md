@@ -39,38 +39,39 @@ grocery sections should be orderable
 
 ### SCHEMA
 
-recipe
+#### recipe
 | id | name | description | notes | type | tags | user_id | create_date | modified_date | deleted |
 
-recipe_steps
+#### recipe_steps
 | id | recipe_id | step_no | text | create_date | modified_date | deleted |
 
-recipe_ingredients
+#### recipe_ingredients
 | id | recipe_id | ingredient_id | create_date | modified_date | deleted |
 
-ingredients
+#### ingredients
 | id | name | type | create_date | modified_date | deleted |
 
-users
+#### users
 | id | first_name | last_name | email | pass_hash | permissions | create_date | modified_date | deleted |
 
 
 ### QUERIES
 
-// get general recipe info
+```sql
+-- get general recipe info
 SELECT * from recipe where recipe.id = {id};
 
-// get recipe ingredients
+-- get recipe ingredients
 SELECT in.name, in.type
 FROM recipe as re
 JOIN recipe_ingredients AS ri ON ri.recipe_id = re.id
 JOIN ingredients AS in ON in.id = ri.ingredient_id
 WHERE re.id = {id};
 
-// get recipe stpes
+-- get recipe stpes
 SELECT rs.step_no, rs.test
 FROM recipe as re
 join recipe_steps as rs on rs.recipe_id = re.id
 WHERE re.id = {id};
-
+```
 
